@@ -1,0 +1,3064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSync Pro | Intelligent Timetable Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        /* ===== CSS Variables & Global Styles ===== */
+        :root {
+            /* Primary Colors */
+            --primary: #6C63FF;
+            --primary-dark: #5248D9;
+            --primary-light: #8B85FF;
+            --primary-gradient: linear-gradient(135deg, #6C63FF 0%, #5248D9 100%);
+            
+            /* Secondary Colors */
+            --secondary: #FF6584;
+            --success: #4ECDC4;
+            --warning: #FFD166;
+            --danger: #FF6B6B;
+            --info: #118AB2;
+            
+            /* Background Colors */
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #334155;
+            --bg-surface: #475569;
+            
+            /* Text Colors */
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-muted: #94A3B8;
+            
+            /* Accent & Effects */
+            --accent: #00D4AA;
+            --glow: 0 0 30px rgba(108, 99, 255, 0.5);
+            --glow-success: 0 0 30px rgba(78, 205, 196, 0.5);
+            --glow-warning: 0 0 30px rgba(255, 209, 102, 0.5);
+            --glow-danger: 0 0 30px rgba(255, 107, 107, 0.5);
+            
+            /* Shadows & Depth */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 30px 60px rgba(0, 0, 0, 0.6);
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-full: 9999px;
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            
+            /* Animations */
+            --float-animation: float 6s ease-in-out infinite;
+            --pulse-animation: pulse 2s infinite;
+            --slide-in-right: slideInRight 0.6s ease-out;
+            --slide-in-left: slideInLeft 0.6s ease-out;
+            --fade-in: fadeIn 0.5s ease-out;
+            --scale-in: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Light Theme Variables */
+        .light-theme {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-surface: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: var(--glow);
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 0 50px rgba(108, 99, 255, 0.8);
+            }
+        }
+
+        @keyframes slideInRight {
+            from { 
+                transform: translateX(100px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                transform: translateX(-100px); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { 
+                transform: scale(0.5); 
+                opacity: 0; 
+            }
+            to { 
+                transform: scale(1); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            transition: background-color var(--transition-normal);
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* ===== Auth Container ===== */
+        .auth-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity var(--transition-slow);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a1a2e 100%);
+        }
+
+        .auth-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .auth-box {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xxl);
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            animation: var(--scale-in);
+            position: relative;
+            overflow: hidden;
+            margin: var(--space-md);
+        }
+
+        .auth-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(108, 99, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shimmer 3s infinite linear;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .auth-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: var(--space-lg);
+            display: inline-block;
+            animation: var(--float-animation);
+        }
+
+        .auth-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-sm);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -1px;
+        }
+
+        .auth-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+
+        /* ===== Form Styles ===== */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius-md);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+            background: var(--bg-card);
+        }
+
+        .form-control.select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236C63FF'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            padding-right: 50px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* ===== Buttons ===== */
+        .auth-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: var(--radius-full);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            margin-top: var(--space-lg);
+        }
+
+        .auth-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .auth-btn:hover::before {
+            left: 100%;
+        }
+
+        .auth-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* ===== App Container ===== */
+        .app-container {
+            display: none;
+            opacity: 0;
+            animation: var(--fade-in) 0.8s forwards;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-xl);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -1px;
+        }
+
+        .logo-badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: var(--pulse-animation);
+        }
+
+        /* ===== Header Actions ===== */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .current-time {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-family: monospace;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* ===== User Profile ===== */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            position: relative;
+        }
+
+        .user-profile:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: var(--pulse-animation);
+            border: 2px solid var(--bg-primary);
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(108, 99, 255, 0.2);
+            padding: var(--space-xl) 0;
+            z-index: 999;
+            transition: transform var(--transition-normal);
+            overflow-y: auto;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: var(--space-xs);
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md) var(--space-xl);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform var(--transition-normal);
+        }
+
+        .menu-link:hover {
+            color: var(--text-primary);
+            background: rgba(108, 99, 255, 0.1);
+            padding-left: var(--space-xxl);
+        }
+
+        .menu-link:hover::before {
+            transform: scaleY(1);
+        }
+
+        .menu-link.active {
+            color: var(--primary);
+            background: rgba(108, 99, 255, 0.15);
+            padding-left: var(--space-xxl);
+        }
+
+        .menu-link.active::before {
+            transform: scaleY(1);
+        }
+
+        .menu-link i {
+            font-size: 1.2rem;
+            margin-right: var(--space-md);
+            width: 24px;
+            transition: transform var(--transition-fast);
+        }
+
+        .menu-link:hover i {
+            transform: scale(1.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .badge-admin {
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--primary-light);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .badge-teacher {
+            background: rgba(78, 205, 196, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .badge-new {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            animation: var(--pulse-animation);
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 80px;
+            padding: var(--space-xl);
+            min-height: calc(100vh - 80px);
+            animation: var(--fade-in);
+        }
+
+        /* ===== Page Header ===== */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: var(--space-xs);
+        }
+
+        /* ===== Cards ===== */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            font-size: 2rem;
+            color: white;
+            background: var(--primary-gradient);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+        }
+
+        .card-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            line-height: 1;
+        }
+
+        .card-change {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .card-change.positive {
+            color: var(--success);
+        }
+
+        .card-change.negative {
+            color: var(--danger);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #00B894 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #FF4757 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #FFA502 100%);
+            color: #333;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        /* ===== Profile Page ===== */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+        }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: var(--space-sm);
+        }
+
+        /* ===== Timetable Page ===== */
+        .timetable-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(5, 1fr);
+            gap: 1px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+            border: 1px solid var(--bg-surface);
+        }
+
+        .timetable-cell {
+            padding: var(--space-md);
+            background: var(--bg-card);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .timetable-cell.header {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .timetable-cell.time {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .timetable-cell:hover {
+            transform: scale(1.02);
+            z-index: 1;
+            box-shadow: var(--shadow-md);
+        }
+
+        .lecture-info {
+            font-size: 0.85rem;
+        }
+
+        .lecture-subject {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .lecture-details {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ===== Settings Page ===== */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .setting-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            transition: all var(--transition-normal);
+        }
+
+        .setting-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .setting-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .setting-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* ===== Help & Support Page ===== */
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .help-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .help-card:hover {
+            transform: translateY(-10px);
+            background: var(--primary);
+        }
+
+        .help-card:hover i,
+        .help-card:hover h3,
+        .help-card:hover p {
+            color: white;
+        }
+
+        .help-card i {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            color: var(--primary);
+        }
+
+        .help-card h3 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .help-card p {
+            color: var(--text-secondary);
+        }
+
+        /* ===== Modals ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            animation: var(--fade-in);
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: var(--space-xxl);
+            box-shadow: var(--shadow-xl);
+            animation: var(--scale-in);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--danger);
+        }
+
+        /* ===== Toast Notifications ===== */
+        .toast-container {
+            position: fixed;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            z-index: 1200;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            min-width: 350px;
+            transform: translateX(100%);
+            opacity: 0;
+            animation: var(--slide-in-right) 0.6s forwards;
+            border-left: 5px solid;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+            background: rgba(255, 209, 102, 0.1);
+        }
+
+        .toast.info {
+            border-left-color: var(--info);
+            background: rgba(17, 138, 178, 0.1);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger);
+        }
+
+        .toast-message {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .close-toast {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color var(--transition-fast);
+        }
+
+        .close-toast:hover {
+            color: var(--danger);
+        }
+
+        /* ===== Mobile Menu Toggle ===== */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .menu-toggle:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* ===== Theme Toggle ===== */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--bg-surface);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== Language Selector ===== */
+        .language-selector {
+            background: var(--bg-surface);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1400px) {
+            .sidebar {
+                width: 250px;
+            }
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .timetable-grid {
+                grid-template-columns: 80px repeat(5, 1fr);
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-cards {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            .timetable-grid {
+                grid-template-columns: 60px repeat(5, 1fr);
+                font-size: 0.8rem;
+            }
+            .timetable-cell {
+                padding: var(--space-sm);
+                min-height: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 var(--space-md);
+                height: 70px;
+            }
+            .main-content {
+                padding: var(--space-md);
+                margin-top: 70px;
+            }
+            .sidebar {
+                top: 70px;
+                height: calc(100vh - 70px);
+            }
+            .page-title {
+                font-size: 2rem;
+            }
+            .auth-box {
+                padding: var(--space-xl);
+                margin: var(--space-md);
+            }
+            .auth-title {
+                font-size: 2rem;
+            }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-lg);
+            }
+            .timetable-grid {
+                grid-template-columns: 50px repeat(5, 1fr);
+                font-size: 0.7rem;
+            }
+            .timetable-cell {
+                padding: 6px;
+                min-height: 50px;
+            }
+            .user-name {
+                display: none;
+            }
+            .current-time {
+                min-width: 100px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            .timetable-grid {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .timetable-grid > div {
+                display: inline-block;
+                width: 200px;
+                vertical-align: top;
+            }
+            .toast {
+                min-width: 280px;
+                margin: 0 var(--space-md);
+            }
+            .modal-content {
+                padding: var(--space-lg);
+                margin: var(--space-md);
+            }
+            .header-actions {
+                gap: var(--space-sm);
+            }
+            .language-selector {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-title {
+                font-size: 1.8rem;
+            }
+            .auth-box {
+                padding: var(--space-lg);
+            }
+            .card {
+                padding: var(--space-lg);
+            }
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== Custom Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            border: 3px solid var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ===== Loading Spinner ===== */
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(108, 99, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== Form Sections ===== */
+        .form-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* ===== Table Styles ===== */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table th {
+            background: var(--primary-gradient);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .table td {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
+            transition: background var(--transition-fast);
+        }
+
+        .table tbody tr:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        /* ===== Progress Bars ===== */
+        .progress-bar {
+            height: 10px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-top: var(--space-sm);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            background: var(--primary-gradient);
+            transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== Search Box ===== */
+        .search-box {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 60px 16px 20px;
+            border: 2px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
+            background: var(--bg-card);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Authentication Container -->
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box">
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h1 class="auth-title">Welcome Back</h1>
+                    <p class="auth-subtitle">Sign in to your EduSync Pro account</p>
+                </div>
+
+                <form id="loginFormElement" onsubmit="event.preventDefault(); login();">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" required>
+                        <div class="form-error" id="loginEmailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-error" id="loginPasswordError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <select class="form-control select" id="loginRole" required>
+                            <option value="">Select your role</option>
+                            <option value="admin">Administrator</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+                        <div class="form-error" id="loginRoleError"></div>
+                    </div>
+
+                    <button type="submit" class="auth-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account? 
+                    <span class="auth-link" onclick="showSignupForm()">Sign up here</span>
+                </div>
+            </div>
+
+            <!-- Signup Form (Hidden by default) -->
+            <div class="auth-form" id="signupForm" style="display: none;">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h1 class="auth-title">Create Account</h1>
+                    <p class="auth-subtitle">Join EduSync Pro today</p>
+                </div>
+
+                <form id="signupFormElement" onsubmit="event.preventDefault(); signup();">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="signupName" placeholder="Enter your full name" required>
+                        <div class="form-error" id="signupNameError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="signupEmail" placeholder="Enter your email" required>
+                        <div class="form-error" id="signupEmailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="signupPhone" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <select class="form-control select" id="signupRole" required>
+                            <option value="">Select your role</option>
+                            <option value="admin">Administrator</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+                        <div class="form-error" id="signupRoleError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Department/Class</label>
+                        <input type="text" class="form-control" id="signupDepartment" placeholder="e.g., Mathematics Department or Grade 10-A">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signupPassword" placeholder="Create a password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-error" id="signupPasswordError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <div class="form-error" id="signupConfirmPasswordError"></div>
+                    </div>
+
+                    <button type="submit" class="auth-btn" id="signupBtn">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? 
+                    <span class="auth-link" onclick="showLoginForm()">Sign in here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">EduSync Pro</div>
+                <div class="logo-badge">v3.0</div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="current-time" id="currentTime"></div>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <select class="language-selector" id="languageSelector">
+                    <option value="en">English</option>
+                    <option value="ur">اردو</option>
+                </select>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Guest User</div>
+                        <div class="user-role" id="userRole">
+                            <i class="fas fa-user"></i> Guest
+                        </div>
+                    </div>
+                    <div class="notification-badge" id="notificationCount">0</div>
+                </div>
+                <button class="btn btn-icon" id="logoutBtn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="#" class="menu-link active" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item admin-only" style="display: none;">
+                    <a href="#" class="menu-link" data-page="admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin Actions</span>
+                        <span class="badge badge-admin">Admin</span>
+                    </a>
+                </li>
+                <li class="menu-item teacher-only" style="display: none;">
+                    <a href="#" class="menu-link" data-page="teacher">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Teacher Actions</span>
+                        <span class="badge badge-teacher">Teacher</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="substitution">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Substitution Detection</span>
+                        <span class="badge badge-new">NEW</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="notification">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <div class="notification-badge">5</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="analytics">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics & Reports</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="timetable">
+                        <i class="fas fa-table"></i>
+                        <span>Live Timetable</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="profile">
+                        <i class="fas fa-user-circle"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="menu-item admin-only" style="display: none;">
+                    <a href="#" class="menu-link" data-page="settings">
+                        <i class="fas fa-cogs"></i>
+                        <span>System Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link" data-page="help">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Content will be loaded dynamically by JavaScript -->
+        </main>
+
+        <!-- Toast Container -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <!-- Modals -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Mark Attendance</h2>
+                <button class="close-modal" onclick="closeModal('attendanceModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal content here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Modal -->
+    <div id="themeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Select Theme</h2>
+                <button class="close-modal" onclick="closeModal('themeModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg);">
+                    <div class="setting-card" onclick="changeTheme('dark')" style="cursor: pointer;">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <h3>Dark Theme</h3>
+                        </div>
+                        <p>Classic dark mode for comfortable viewing</p>
+                    </div>
+                    <div class="setting-card" onclick="changeTheme('light')" style="cursor: pointer;">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <h3>Light Theme</h3>
+                        </div>
+                        <p>Bright theme for daytime use</p>
+                    </div>
+                    <div class="setting-card" onclick="changeTheme('auto')" style="cursor: pointer;">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-adjust"></i>
+                            </div>
+                            <h3>Auto Theme</h3>
+                        </div>
+                        <p>Automatically switch based on system</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== SYSTEM INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Particles.js background
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#6C63FF" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#6C63FF",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                }
+            });
+
+            // Initialize system
+            initializeSystem();
+        });
+
+        // ===== USER MANAGEMENT =====
+        let currentUser = null;
+        let isLoggedIn = false;
+        let allUsers = JSON.parse(localStorage.getItem('edusync_users') || '[]');
+        let currentTheme = localStorage.getItem('edusync_theme') || 'dark';
+
+        // Default admin user if no users exist
+        if (allUsers.length === 0) {
+            const defaultAdmin = {
+                id: generateId(),
+                name: 'Admin User',
+                email: 'admin@edusync.edu',
+                phone: '+92 300 1234567',
+                department: 'Administration',
+                role: 'admin',
+                avatar: 'AU',
+                password: 'admin123',
+                createdAt: new Date().toISOString(),
+                stats: {
+                    totalLectures: 0,
+                    attendanceRate: 0,
+                    substitutions: 0,
+                    performance: 0
+                }
+            };
+            allUsers.push(defaultAdmin);
+            localStorage.setItem('edusync_users', JSON.stringify(allUsers));
+        }
+
+        function initializeSystem() {
+            setupAuthSystem();
+            setupEventListeners();
+            applyTheme(currentTheme);
+            checkAutoLogin();
+            updateCurrentTime();
+        }
+
+        function generateId() {
+            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // ===== AUTHENTICATION SYSTEM =====
+        function setupAuthSystem() {
+            const loginForm = document.getElementById('loginFormElement');
+            const signupForm = document.getElementById('signupFormElement');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                login();
+            });
+            
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                signup();
+            });
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+        }
+
+        function showSignupForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const toggleBtn = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                input.type = 'password';
+                toggleBtn.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const role = document.getElementById('loginRole').value;
+            
+            // Clear errors
+            clearErrors();
+            
+            // Validation
+            if (!email || !password || !role) {
+                showError('loginEmailError', 'All fields are required');
+                return;
+            }
+            
+            // Find user
+            const user = allUsers.find(u => 
+                u.email === email && 
+                u.password === password && 
+                u.role === role
+            );
+            
+            if (!user) {
+                showError('loginEmailError', 'Invalid credentials or role');
+                return;
+            }
+            
+            // Login successful
+            currentUser = user;
+            isLoggedIn = true;
+            
+            // Save to localStorage for auto-login
+            localStorage.setItem('edusync_current_user', JSON.stringify(user));
+            
+            // Show success message
+            showToast('Login successful! Welcome back, ' + user.name, 'success');
+            
+            // Hide auth container and show app
+            setTimeout(() => {
+                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('appContainer').style.display = 'block';
+                updateUIForUser();
+                loadPageContent('home');
+            }, 500);
+        }
+
+        function signup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const role = document.getElementById('signupRole').value;
+            const department = document.getElementById('signupDepartment').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            // Clear errors
+            clearErrors();
+            
+            // Validation
+            if (!name || !email || !role || !password || !confirmPassword) {
+                showError('signupNameError', 'Please fill all required fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('signupConfirmPasswordError', 'Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('signupPasswordError', 'Password must be at least 6 characters');
+                return;
+            }
+            
+            // Check if email already exists
+            if (allUsers.find(u => u.email === email)) {
+                showError('signupEmailError', 'Email already registered');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: generateId(),
+                name: name,
+                email: email,
+                phone: phone || '',
+                department: department || '',
+                role: role,
+                avatar: getInitials(name),
+                password: password,
+                createdAt: new Date().toISOString(),
+                stats: {
+                    totalLectures: 0,
+                    attendanceRate: 0,
+                    substitutions: 0,
+                    performance: 0
+                }
+            };
+            
+            // Add to users array
+            allUsers.push(newUser);
+            localStorage.setItem('edusync_users', JSON.stringify(allUsers));
+            
+            // Auto login
+            currentUser = newUser;
+            isLoggedIn = true;
+            localStorage.setItem('edusync_current_user', JSON.stringify(newUser));
+            
+            // Show success message
+            showToast('Account created successfully! Welcome to EduSync Pro', 'success');
+            
+            // Hide auth container and show app
+            setTimeout(() => {
+                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('appContainer').style.display = 'block';
+                updateUIForUser();
+                loadPageContent('home');
+            }, 500);
+        }
+
+        function getInitials(name) {
+            return name.split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase()
+                .substring(0, 2);
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.form-error').forEach(el => {
+                el.classList.remove('show');
+                el.textContent = '';
+            });
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.classList.add('show');
+        }
+
+        function checkAutoLogin() {
+            const savedUser = localStorage.getItem('edusync_current_user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    const storedUser = allUsers.find(u => u.id === user.id && u.email === user.email);
+                    
+                    if (storedUser) {
+                        currentUser = storedUser;
+                        isLoggedIn = true;
+                        document.getElementById('authContainer').classList.add('hidden');
+                        document.getElementById('appContainer').style.display = 'block';
+                        updateUIForUser();
+                        loadPageContent('home');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('edusync_current_user');
+                }
+            }
+        }
+
+        // ===== PAGE MANAGEMENT SYSTEM =====
+        function loadPageContent(pageId) {
+            const mainContent = document.getElementById('mainContent');
+            
+            if (!isLoggedIn) {
+                showToast('Please login first', 'error');
+                return;
+            }
+            
+            // Check permissions
+            if (pageId === 'admin' && currentUser.role !== 'admin') {
+                showToast('Access denied. Admin only.', 'error');
+                return;
+            }
+            
+            if (pageId === 'teacher' && currentUser.role === 'student') {
+                showToast('Access denied. Teachers only.', 'error');
+                return;
+            }
+            
+            if (pageId === 'settings' && currentUser.role !== 'admin') {
+                showToast('Access denied. Admin only.', 'error');
+                return;
+            }
+            
+            switch(pageId) {
+                case 'home':
+                    mainContent.innerHTML = generateHomePage();
+                    break;
+                case 'admin':
+                    mainContent.innerHTML = generateAdminPage();
+                    break;
+                case 'teacher':
+                    mainContent.innerHTML = generateTeacherPage();
+                    break;
+                case 'substitution':
+                    mainContent.innerHTML = generateSubstitutionPage();
+                    break;
+                case 'notification':
+                    mainContent.innerHTML = generateNotificationPage();
+                    break;
+                case 'analytics':
+                    mainContent.innerHTML = generateAnalyticsPage();
+                    break;
+                case 'timetable':
+                    mainContent.innerHTML = generateTimetablePage();
+                    break;
+                case 'profile':
+                    mainContent.innerHTML = generateProfilePage();
+                    break;
+                case 'settings':
+                    mainContent.innerHTML = generateSettingsPage();
+                    break;
+                case 'help':
+                    mainContent.innerHTML = generateHelpPage();
+                    break;
+                default:
+                    mainContent.innerHTML = generateHomePage();
+            }
+            
+            // Initialize page-specific components
+            setTimeout(() => {
+                initializePageComponents(pageId);
+            }, 100);
+        }
+
+        // ===== PAGE GENERATORS =====
+        function generateHomePage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Dashboard</h1>
+                        <p class="page-subtitle">Welcome back, ${currentUser.name}! Here's what's happening today.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="refreshDashboard()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="dashboard-cards">
+                    <div class="card attendance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Today's Attendance</div>
+                            <div class="card-value">${currentUser.stats.attendanceRate || 0}%</div>
+                            <div class="card-change positive">
+                                <i class="fas fa-arrow-up"></i> 2.5% from yesterday
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Total Lectures</div>
+                            <div class="card-value">${currentUser.stats.totalLectures || 0}</div>
+                            <div class="card-change positive">
+                                <i class="fas fa-arrow-up"></i> This week: ${(currentUser.stats.totalLectures || 0) + 12}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Substitutions</div>
+                            <div class="card-value">${currentUser.stats.substitutions || 0}</div>
+                            <div class="card-change ${(currentUser.stats.substitutions || 0) > 0 ? 'negative' : 'positive'}">
+                                <i class="fas fa-${(currentUser.stats.substitutions || 0) > 0 ? 'arrow-up' : 'check'}"></i>
+                                ${(currentUser.stats.substitutions || 0) > 0 ? 'Need attention' : 'All clear'}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Performance</div>
+                            <div class="card-value">${currentUser.stats.performance || 0}%</div>
+                            <div class="card-change positive">
+                                <i class="fas fa-arrow-up"></i> 5% improvement
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md);">
+                        ${currentUser.role !== 'student' ? `
+                        <button class="btn btn-success" onclick="markAttendance()">
+                            <i class="fas fa-user-check"></i> Mark Attendance
+                        </button>
+                        <button class="btn btn-primary" onclick="requestSubstitution()">
+                            <i class="fas fa-exchange-alt"></i> Request Substitution
+                        </button>
+                        ` : ''}
+                        <button class="btn btn-warning" onclick="reportIssue()">
+                            <i class="fas fa-exclamation-triangle"></i> Report Issue
+                        </button>
+                        <button class="btn btn-outline" onclick="scheduleMeeting()">
+                            <i class="fas fa-calendar-plus"></i> Schedule Meeting
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateProfilePage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">My Profile</h1>
+                        <p class="page-subtitle">Manage your personal information and settings</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="editProfile()">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+                
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="avatar-circle">
+                        ${currentUser.avatar}
+                        <button class="avatar-edit-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h2>${currentUser.name}</h2>
+                        <p><i class="fas fa-envelope"></i> ${currentUser.email}</p>
+                        ${currentUser.phone ? `<p><i class="fas fa-phone"></i> ${currentUser.phone}</p>` : ''}
+                        ${currentUser.department ? `<p><i class="fas fa-building"></i> ${currentUser.department}</p>` : ''}
+                        <p><i class="fas fa-user-tag"></i> ${currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1)}</p>
+                    </div>
+                </div>
+                
+                <!-- Profile Stats -->
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">${currentUser.stats.totalLectures || 0}</span>
+                        <span class="stat-label">Total Lectures</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${currentUser.stats.attendanceRate || 0}%</span>
+                        <span class="stat-label">Attendance Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${currentUser.stats.performance || 0}%</span>
+                        <span class="stat-label">Performance</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${currentUser.stats.substitutions || 0}</span>
+                        <span class="stat-label">Substitutions</span>
+                    </div>
+                </div>
+                
+                <!-- Account Settings -->
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-user-cog"></i> Account Settings</h3>
+                    <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg);">
+                        <div class="form-group">
+                            <label class="form-label">Email Notifications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">SMS Notifications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="smsNotifications">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Two-Factor Authentication</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="twoFactorAuth">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--space-lg);">
+                        <button class="btn btn-primary" onclick="saveProfileSettings()">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                        <button class="btn btn-outline" onclick="changePassword()">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateTimetablePage() {
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const times = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM'];
+            
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Live Timetable</h1>
+                        <p class="page-subtitle">View and manage your weekly schedule</p>
+                    </div>
+                    <div class="timetable-controls">
+                        <select class="form-control select" style="width: auto;">
+                            <option>Current Week</option>
+                            <option>Next Week</option>
+                            <option>Custom Date</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="exportTimetable()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Timetable Grid -->
+                <div class="timetable-grid">
+                    <!-- Time Column -->
+                    <div class="timetable-cell time header">Time</div>
+                    ${days.map(day => `
+                        <div class="timetable-cell header">${day}</div>
+                    `).join('')}
+                    
+                    <!-- Time slots -->
+                    ${times.map(time => `
+                        <div class="timetable-cell time">${time}</div>
+                        ${days.map(day => `
+                            <div class="timetable-cell">
+                                ${generateRandomLecture(day, time)}
+                            </div>
+                        `).join('')}
+                    `).join('')}
+                </div>
+                
+                <!-- Legend -->
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-key"></i> Legend</h3>
+                    <div style="display: flex; gap: var(--space-lg); flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 20px; height: 20px; background: var(--success); border-radius: var(--radius-sm);"></div>
+                            <span>Live Lecture</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 20px; height: 20px; background: var(--warning); border-radius: var(--radius-sm);"></div>
+                            <span>Upcoming</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 20px; height: 20px; background: var(--info); border-radius: var(--radius-sm);"></div>
+                            <span>Completed</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 20px; height: 20px; background: var(--danger); border-radius: var(--radius-sm);"></div>
+                            <span>Cancelled</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <div style="width: 20px; height: 20px; background: var(--primary); border-radius: var(--radius-sm);"></div>
+                            <span>Substituted</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSettingsPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">System Settings</h1>
+                        <p class="page-subtitle">Configure system-wide settings and preferences</p>
+                    </div>
+                    <button class="btn btn-success" onclick="saveSystemSettings()">
+                        <i class="fas fa-save"></i> Save All Changes
+                    </button>
+                </div>
+                
+                <!-- Settings Grid -->
+                <div class="settings-grid">
+                    <!-- General Settings -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3>General Settings</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Institute Name</label>
+                            <input type="text" class="form-control" value="EduSync Pro Institute">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Time Zone</label>
+                            <select class="form-control select">
+                                <option>UTC+05:00 (Pakistan Standard Time)</option>
+                                <option>UTC+00:00 (GMT)</option>
+                                <option>UTC-05:00 (EST)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Settings -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3>Academic Settings</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Academic Year</label>
+                            <select class="form-control select">
+                                <option>2024-2025</option>
+                                <option>2025-2026</option>
+                                <option>2026-2027</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Semester</label>
+                            <select class="form-control select">
+                                <option>Fall 2024</option>
+                                <option>Spring 2025</option>
+                                <option>Summer 2025</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Notification Settings -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Notification Settings</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Notifications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">SMS Alerts</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Push Notifications</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Settings -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <div class="setting-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Security Settings</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Session Timeout</label>
+                            <select class="form-control select">
+                                <option>15 minutes</option>
+                                <option>30 minutes</option>
+                                <option>1 hour</option>
+                                <option>Never</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Two-Factor Auth</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Login Attempts</label>
+                            <input type="number" class="form-control" value="5" min="1" max="10">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Management -->
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-database"></i> Data Management</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg);">
+                        <div>
+                            <button class="btn btn-primary" onclick="createBackup()">
+                                <i class="fas fa-download"></i> Create Backup
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning" onclick="showRestoreModal()">
+                                <i class="fas fa-upload"></i> Restore Data
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-danger" onclick="showCleanupModal()">
+                                <i class="fas fa-trash"></i> Clean System
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateHelpPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Help & Support</h1>
+                        <p class="page-subtitle">Get help and learn how to use EduSync Pro</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="contactSupport()">
+                        <i class="fas fa-headset"></i> Contact Support
+                    </button>
+                </div>
+                
+                <!-- Help Grid -->
+                <div class="help-grid">
+                    <div class="help-card" onclick="showDocumentation()">
+                        <i class="fas fa-book"></i>
+                        <h3>Documentation</h3>
+                        <p>Read our comprehensive guides and tutorials</p>
+                    </div>
+                    <div class="help-card" onclick="showVideoTutorials()">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Tutorials</h3>
+                        <p>Watch step-by-step video guides</p>
+                    </div>
+                    <div class="help-card" onclick="showFAQs()">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>FAQs</h3>
+                        <p>Find answers to common questions</p>
+                    </div>
+                    <div class="help-card" onclick="showSystemStatus()">
+                        <i class="fas fa-server"></i>
+                        <h3>System Status</h3>
+                        <p>Check current system performance</p>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-link"></i> Quick Links</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg);">
+                        <div>
+                            <h4><i class="fas fa-user-circle"></i> Account Help</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Reset Password</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Update Profile</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Security Settings</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-calendar-alt"></i> Timetable Help</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Create Schedule</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Manage Classes</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Export Timetable</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-chart-line"></i> Analytics Help</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">View Reports</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Generate Insights</a></li>
+                                <li><a href="#" style="color: var(--primary); text-decoration: none;">Data Export</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSubstitutionPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Substitution Detection</h1>
+                        <p class="page-subtitle">Manage teacher substitutions and replacements</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="requestSubstitution()">
+                        <i class="fas fa-plus"></i> New Request
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-list"></i> Pending Requests</h3>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                    <th>Original Teacher</th>
+                                    <th>Substitute</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-03-20</td>
+                                    <td>Grade 10-A</td>
+                                    <td>Mathematics</td>
+                                    <td>Dr. Ahmed Raza</td>
+                                    <td>Prof. Sara Khan</td>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2024-03-21</td>
+                                    <td>Grade 11-B</td>
+                                    <td>Physics</td>
+                                    <td>Prof. Sara Khan</td>
+                                    <td>Dr. Ali Hassan</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">Approve</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateRandomLecture(day, time) {
+            const lectures = [
+                { subject: 'Mathematics', teacher: 'Dr. Ahmed', room: 'Room 301', status: 'live' },
+                { subject: 'Physics', teacher: 'Prof. Sara', room: 'Lab 205', status: 'upcoming' },
+                { subject: 'Chemistry', teacher: 'Dr. Ali', room: 'Lab 101', status: 'completed' },
+                { subject: 'Computer Sci', teacher: 'Ms. Fatima', room: 'Computer Lab', status: 'cancelled' },
+                { subject: 'Biology', teacher: 'Dr. Khan', room: 'Bio Lab', status: 'substituted' }
+            ];
+            
+            const random = Math.floor(Math.random() * 5);
+            if (random === 0) return '';
+            
+            const lecture = lectures[random - 1];
+            return `
+                <div class="lecture-info" style="border-left: 3px solid var(--${lecture.status === 'live' ? 'success' : lecture.status === 'upcoming' ? 'warning' : lecture.status === 'completed' ? 'info' : lecture.status === 'cancelled' ? 'danger' : 'primary'}); padding-left: 8px;">
+                    <div class="lecture-subject">${lecture.subject}</div>
+                    <div class="lecture-details">${lecture.teacher}<br>${lecture.room}</div>
+                </div>
+            `;
+        }
+
+        // ===== PAGE INITIALIZATION =====
+        function initializePageComponents(pageId) {
+            switch(pageId) {
+                case 'home':
+                    initializeHomePage();
+                    break;
+                case 'timetable':
+                    initializeTimetablePage();
+                    break;
+                case 'profile':
+                    initializeProfilePage();
+                    break;
+                // ... other pages
+            }
+        }
+
+        function initializeHomePage() {
+            // Any home page specific initialization
+        }
+
+        function initializeTimetablePage() {
+            // Initialize timetable interactions if needed
+        }
+
+        function initializeProfilePage() {
+            // Initialize profile page interactions
+        }
+
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Menu navigation
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    loadPageContent(pageId);
+                    
+                    // Update active menu
+                    document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 1200) {
+                        document.getElementById('sidebar').classList.remove('active');
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    logout();
+                }
+            });
+
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                showThemeModal();
+            });
+
+            // User profile click
+            document.getElementById('userProfile').addEventListener('click', function() {
+                loadPageContent('profile');
+            });
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('sidebar');
+                const menuToggle = document.getElementById('menuToggle');
+                
+                if (window.innerWidth <= 1200 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) && 
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'k') {
+                    e.preventDefault();
+                    // Focus search if available
+                    const searchInput = document.querySelector('.search-input');
+                    if (searchInput) searchInput.focus();
+                }
+                if (e.key === 'Escape') {
+                    closeAllModals();
+                }
+            });
+        }
+
+        // ===== THEME MANAGEMENT =====
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                document.getElementById('themeToggle').title = 'Switch to Dark Theme';
+            } else {
+                document.body.classList.remove('light-theme');
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+                document.getElementById('themeToggle').title = 'Switch to Light Theme';
+            }
+            localStorage.setItem('edusync_theme', theme);
+        }
+
+        function showThemeModal() {
+            document.getElementById('themeModal').style.display = 'flex';
+        }
+
+        function changeTheme(theme) {
+            currentTheme = theme;
+            applyTheme(theme);
+            closeModal('themeModal');
+            showToast('Theme changed to ' + theme, 'success');
+        }
+
+        // ===== USER MANAGEMENT FUNCTIONS =====
+        function updateUIForUser() {
+            // Update header
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userAvatar').textContent = currentUser.avatar;
+            
+            // Update role display
+            let roleDisplay = '';
+            let roleIcon = '';
+            if (currentUser.role === 'admin') {
+                roleDisplay = 'Administrator';
+                roleIcon = 'user-shield';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+                document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'block');
+            } else if (currentUser.role === 'teacher') {
+                roleDisplay = 'Teacher';
+                roleIcon = 'chalkboard-teacher';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'block');
+            } else {
+                roleDisplay = 'Student';
+                roleIcon = 'user-graduate';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'none');
+            }
+            
+            document.getElementById('userRole').innerHTML = `
+                <i class="fas fa-${roleIcon}"></i> ${roleDisplay}
+            `;
+        }
+
+        function logout() {
+            currentUser = null;
+            isLoggedIn = false;
+            localStorage.removeItem('edusync_current_user');
+            
+            // Show auth screen
+            document.getElementById('authContainer').classList.remove('hidden');
+            document.getElementById('appContainer').style.display = 'none';
+            
+            // Reset forms
+            document.getElementById('loginFormElement').reset();
+            showLoginForm();
+            
+            showToast('Logged out successfully', 'info');
+        }
+
+        // ===== MODAL FUNCTIONS =====
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // ===== TOAST NOTIFICATIONS =====
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'exclamation-circle',
+                warning: 'exclamation-triangle',
+                info: 'info-circle'
+            };
+            
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]} toast-icon"></i>
+                <div class="toast-message">${message}</div>
+                <button class="close-toast" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 5000);
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function updateCurrentTime() {
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                const updateTime = () => {
+                    const now = new Date();
+                    timeElement.textContent = now.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: true
+                    });
+                };
+                
+                updateTime();
+                setInterval(updateTime, 1000);
+            }
+        }
+
+        function refreshDashboard() {
+            showToast('Dashboard refreshed', 'success');
+            loadPageContent('home');
+        }
+
+        function markAttendance() {
+            showModal('attendanceModal');
+        }
+
+        function editProfile() {
+            showToast('Edit profile feature coming soon!', 'info');
+        }
+
+        function requestSubstitution() {
+            showToast('Substitution request feature coming soon!', 'info');
+        }
+
+        function exportTimetable() {
+            showToast('Timetable exported successfully!', 'success');
+        }
+
+        function saveSystemSettings() {
+            showToast('System settings saved!', 'success');
+        }
+
+        function contactSupport() {
+            showToast('Support contact feature coming soon!', 'info');
+        }
+
+        // ===== OTHER PAGE GENERATORS (simplified for brevity) =====
+        function generateAdminPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Admin Dashboard</h1>
+                        <p class="page-subtitle">System management and configuration</p>
+                    </div>
+                    <button class="btn btn-danger" onclick="showSystemBackupModal()">
+                        <i class="fas fa-database"></i> Backup System
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-tachometer-alt"></i> Admin Controls</h3>
+                    <p>Full administrative interface coming soon!</p>
+                </div>
+            `;
+        }
+
+        function generateTeacherPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Teacher Dashboard</h1>
+                        <p class="page-subtitle">Manage your lectures and activities</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="startNewLecture()">
+                        <i class="fas fa-play-circle"></i> Start New Lecture
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Teacher Tools</h3>
+                    <p>Teacher-specific interface coming soon!</p>
+                </div>
+            `;
+        }
+
+        function generateNotificationPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Notifications</h1>
+                        <p class="page-subtitle">View and manage your notifications</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="markAllAsRead()">
+                        <i class="fas fa-check-double"></i> Mark All as Read
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-bell"></i> Recent Notifications</h3>
+                    <p>Notification system coming soon!</p>
+                </div>
+            `;
+        }
+
+        function generateAnalyticsPage() {
+            return `
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">Analytics & Reports</h1>
+                        <p class="page-subtitle">View system analytics and generate reports</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateReport()">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="section-title"><i class="fas fa-chart-line"></i> Analytics Dashboard</h3>
+                    <p>Analytics interface coming soon!</p>
+                </div>
+            `;
+        }
+
+        // Initialize the system
+        initializeSystem();
+    </script>
+</body>
+</html>
